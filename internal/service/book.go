@@ -29,7 +29,7 @@ func (s *BookService) CreateBook(book Book) error {
 	return nil
 }
 
-func (s *BookService) GetBook() ([]Book, error) {
+func (s *BookService) GetBooks() ([]Book, error) {
 	query := "SELECT id, title, author, genre FROM books"
 	rows, err := s.db.Query(query)
 	if err != nil {
