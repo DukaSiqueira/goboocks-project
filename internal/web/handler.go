@@ -11,6 +11,10 @@ type BookHandler struct {
 	service *service.BookService
 }
 
+func NewBookHandler(service *service.BookService) *BookHandler {
+	return &BookHandler{service: service}
+}
+
 // CreateBook lida com a requisição POST /books.
 func (h *BookHandler) CreateBook(w http.ResponseWriter, r *http.Request) {
 	var book *service.Book
@@ -34,7 +38,7 @@ func (h *BookHandler) CreateBook(w http.ResponseWriter, r *http.Request) {
 func (h *BookHandler) GetBooks(w http.ResponseWriter, r *http.Request) {
 	books, err := h.service.GetBooks()
 	if err != nil {
-		http.Error(w, "Failed to get Books", http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
